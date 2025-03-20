@@ -55,7 +55,7 @@ jobs:
       packages: write
       # Required by cosign keyless signing
       id-token: write
-    uses: fabriziosestito/github-actions/.github/workflows/reusable-release-policy-rego.yml@24e8723da513af4567b2eedad0226855600164d2
+    uses: fabriziosestito/github-actions/.github/workflows/reusable-release-policy-rego.yml@feat/add-policy-catalog-repository-dispatch
     with:
       oci-target: ghcr.io/${{ github.repository_owner }}/policies/${{ needs.calculate-policy-from-tag.outputs.policy-id }}
       policy-name: ${{ needs.calculate-policy-from-tag.outputs.policy-name }}
