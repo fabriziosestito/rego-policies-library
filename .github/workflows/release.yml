@@ -19,14 +19,16 @@ jobs:
         run: |
           # we expect a tag on the form of: ControllerContainerBlockSSHPort/v0.1.0
           # and want:
+          #   policy_name="ControllerContainerBlockSSHPort"
           #   policy_working_dir="policies/ControllerContainerBlockSSHPort"
           #   policy_version="0.1.0"
           #   policy_id="controller-container-block-ssh-port" # from metadata.yml
-          policy_dir_name=$( echo ${{ github.ref_name }} | sed 's/\(.*\)\/\(.*\)$/\1/' )
-          policy_working_dir=policies/"$policy_dir_name"
+          policy_name=$( echo ${{ github.ref_name }} | sed 's/\(.*\)\/\(.*\)$/\1/' )
+          policy_working_dir=policies/"$policy_name"
           policy_ociUrl=$(yq -r '.annotations."io.kubewarden.policy.ociUrl"' $policy_working_dir/metadata.yml)
           policy_id=${policy_ociUrl##*/}
 
+          echo "policy_name=$policy_name" >> $GITHUB_OUTPUT
           echo "policy_id=$policy_id" >> $GITHUB_OUTPUT
           echo "policy_working_dir=$policy_working_dir" >> $GITHUB_OUTPUT
           echo "policy_version=$( echo ${{ github.ref_name }} | sed 's/\(.*\)\/\(.*\)$/\2/' | cut -c2- )" >> $GITHUB_OUTPUT
@@ -53,8 +55,9 @@ jobs:
       packages: write
       # Required by cosign keyless signing
       id-token: write
-    uses: kubewarden/github-actions/.github/workflows/reusable-release-policy-rego.yml@36f0782e949d8597c061ca0d519f7e17a2813190 # v3.4.8
+    uses: fabriziosestito/github-actions/.github/workflows/reusable-release-policy-rego.yml@24e8723da513af4567b2eedad0226855600164d2
     with:
       oci-target: ghcr.io/${{ github.repository_owner }}/policies/${{ needs.calculate-policy-from-tag.outputs.policy-id }}
+      policy-name: ${{ needs.calculate-policy-from-tag.outputs.policy-name }}
       policy-working-dir: ${{ needs.calculate-policy-from-tag.outputs.policy-working-dir }}
       policy-version: ${{ needs.calculate-policy-from-tag.outputs.policy-version }}
