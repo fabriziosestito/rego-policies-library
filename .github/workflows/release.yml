@@ -61,3 +61,4 @@ jobs:
       policy-name: ${{ needs.calculate-policy-from-tag.outputs.policy-name }}
       policy-working-dir: ${{ needs.calculate-policy-from-tag.outputs.policy-working-dir }}
       policy-version: ${{ needs.calculate-policy-from-tag.outputs.policy-version }}
+    secrets: inherit
