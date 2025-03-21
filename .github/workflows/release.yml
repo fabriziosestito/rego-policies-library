@@ -5,6 +5,8 @@ on:
 
 name: Release policy
 
+permissions: read-all
+
 jobs:
   calculate-policy-from-tag:
     runs-on: ubuntu-latest
