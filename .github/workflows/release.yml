@@ -9,6 +9,7 @@ jobs:
   calculate-policy-from-tag:
     runs-on: ubuntu-latest
     outputs:
+      policy-name: ${{ steps.calculate-vars.outputs.policy_name }}
       policy-working-dir: ${{ steps.calculate-vars.outputs.policy_working_dir }}
       policy-version: ${{ steps.calculate-vars.outputs.policy_version }}
       policy-id: ${{ steps.calculate-vars.outputs.policy_id }}
