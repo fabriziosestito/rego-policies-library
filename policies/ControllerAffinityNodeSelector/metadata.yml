@@ -27,4 +27,4 @@ annotations:
   io.kubewarden.policy.category: capacity-management
   io.kubewarden.policy.severity: medium
   io.kubewarden.policy.standards.soc2-type-i: soc2-type-i.2.1.1
-  io.kubewarden.policy.version: v2.0.6
+  io.kubewarden.policy.version: v2.0.7
