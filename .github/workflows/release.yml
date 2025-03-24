@@ -63,6 +63,9 @@ jobs:
 
   release-catalog:
     needs: [calculate-policy-from-tag, release]
+    permissions:
+      # Required to repository dispatch
+      contents: write
     uses: fabriziosestito/github-actions/.github/workflows/reusable-release-policy-catalog.yml@refactor/policy-release-catalog-reusable
     with:
       policy-name: ${{ needs.calculate-policy-from-tag.outputs.policy-name }}
